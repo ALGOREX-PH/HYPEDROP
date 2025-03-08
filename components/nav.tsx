@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
 
 export function Nav() {
@@ -10,7 +11,7 @@ export function Nav() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold">
-              HYPEDROP
+              <Logo />
             </Link>
             <div className="hidden md:block ml-10">
               <div className="flex items-center space-x-4">
