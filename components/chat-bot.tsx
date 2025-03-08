@@ -1,15 +1,20 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react";
 import { CloudLightning as Lightning, X, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { getChatResponse } from "@/lib/gemini"
+import { getChatResponse } from "@/lib/gemini";
+
+interface ChatMessage {
+  type: 'user' | 'assistant';
+  content: string;
+}
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState([
-    { type: "bot", content: "Hey! How can I help you today? 🔥" }
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { type: "assistant", content: "Hey! How can I help you today? 🔥" }
   ])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -29,16 +34,19 @@ export function ChatBot() {
     setInput("")
     setIsLoading(true)
     
-    setMessages(prev => [...prev, { type: "user", content: userMessage }])
+    const userMsg: ChatMessage = { type: 'user', content: userMessage };
+    setMessages(prev => [...prev, userMsg])
     
     try {
-      const response = await getChatResponse(userMessage, messages)
-      setMessages(prev => [...prev, { type: "bot", content: response }])
+      const response = await getChatResponse(userMessage, messages);
+      const botMsg: ChatMessage = { type: 'assistant', content: response };
+      setMessages(prev => [...prev, botMsg])
     } catch (error) {
-      setMessages(prev => [...prev, { 
-        type: "bot",
+      const errorMsg: ChatMessage = {
+        type: 'assistant',
         content: "Sorry, I'm having trouble connecting. Please try again. 🔌"
-      }])
+      };
+      setMessages(prev => [...prev, errorMsg])
     } finally {
       setIsLoading(false)
     }
@@ -84,12 +92,12 @@ export function ChatBot() {
               key={i}
               className={cn(
                 "flex gap-2 animate-fade-in",
-                message.type === "user" && "flex-row-reverse"
+                message.type === 'user' && "flex-row-reverse"
               )}
             >
               <div className={cn(
                 "rounded-2xl px-4 py-2 max-w-[80%]",
-                message.type === "bot" ? "bg-violet-600/20 text-white" : "bg-white/10"
+                message.type === 'assistant' ? "bg-violet-600/20 text-white" : "bg-white/10"
               )}>
                 {message.content}
               </div>

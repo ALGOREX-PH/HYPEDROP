@@ -23,6 +23,8 @@ function formatHistory(messages: ChatMessage[]) {
 }
 
 export async function getChatResponse(userMessage: string, chatHistory: ChatMessage[]) {
+  console.log('Chat History:', chatHistory);
+  console.log('System Prompt:', process.env.NEXT_PUBLIC_SYSTEM_PROMPT);
   try {
     if (!userMessage.trim()) {
       return "Hey, what's on your mind? Let's talk sneakers and style! 🔥";
@@ -48,15 +50,7 @@ export async function getChatResponse(userMessage: string, chatHistory: ChatMess
     }
 
     // Send the user's message
-    const result = await chat.sendMessage(userMessage, {
-      safetySettings: [{
-        category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-      }, {
-        category: 'HARM_CATEGORY_HATE_SPEECH',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-      }]
-    });
+    const result = await chat.sendMessage(userMessage);
 
     const response = await result.response;
     const text = response.text();
