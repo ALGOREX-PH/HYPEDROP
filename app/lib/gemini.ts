@@ -31,7 +31,7 @@ export async function getChatResponse(userMessage: string, chatHistory: ChatMess
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const chat = model.startChat({
       history: [
-        { role: 'user', parts: ['System: ' + systemPrompt] },
+        { role: 'user', parts: ['System: ' + systemPrompt + '\n\nPlease format your responses using markdown when appropriate for lists, code snippets, and emphasis.'] },
         { role: 'model', parts: ['Understood. I will act as HypeBot, the sneaker and streetwear expert.'] }
       ],
       generationConfig: { temperature: 0.7, topK: 40, topP: 0.95, maxOutputTokens: 1024 }
