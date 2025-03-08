@@ -1,33 +1,63 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
+if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+  throw new Error('Gemini API key is required');
+}
 
-const systemPrompt = process.env.NEXT_PUBLIC_SYSTEM_PROMPT || `You are HYPEDROP's AI assistant. You help customers with questions about streetwear, limited drops, and fashion culture. Be knowledgeable, trendy, and maintain a cool, professional tone.`;
+const systemPrompt = process.env.NEXT_PUBLIC_SYSTEM_PROMPT || '';
+const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
-export async function getChatResponse(userMessage: string, chatHistory: { type: string; content: string }[]) {
+interface ChatMessage {
+  type: 'user' | 'assistant';
+  content: string;
+}
+
+export async function getChatResponse(userMessage: string, chatHistory: ChatMessage[] = []) {
   try {
-    if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
-      throw new Error('API key not configured');
+    // Validate chat history
+    if (!Array.isArray(chatHistory) || !chatHistory.every(msg => 
+      msg && 
+      (msg.type === 'user' || msg.type === 'assistant') && 
+      typeof msg.content === 'string'
+    )) {
+      console.error('Invalid chat history format');
+      chatHistory = [];
     }
-    
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    
-    // Format chat history for Gemini
-    const formattedHistory = chatHistory
-      .map(msg => `${msg.type === 'user' ? 'Human' : 'Assistant'}: ${msg.content}`)
-      .join('\n');
-    
+
+    if (!userMessage.trim()) {
+      return "Hey, what's on your mind? Let's talk sneakers and style! 🔥";
+    }
+
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const chat = model.startChat({
-      history: [`System: ${systemPrompt}`, formattedHistory],
+      history: [
+        { role: 'user', parts: ['System: ' + systemPrompt] },
+        { role: 'model', parts: ['Understood. I will act as HypeBot, the sneaker and streetwear expert.'] }
+      ],
+      generationConfig: { temperature: 0.7, topK: 40, topP: 0.95, maxOutputTokens: 1024 }
     });
+
+    // Add recent chat history
+    for (const msg of chatHistory
+      .slice(-5)
+      .filter(msg => msg.type === 'user' || msg.type === 'assistant')) {
+      await chat.sendMessage(msg.content);
+    }
 
     const result = await chat.sendMessage(userMessage);
     const response = await result.response;
     const text = response.text();
-    
+
+    if (!text) {
+      throw new Error('Empty response from API');
+    }
+
     return text;
   } catch (error) {
     console.error('Gemini API Error:', error);
-    return "I'm having trouble connecting right now. Please try again in a moment. 🔌";
+    if (error instanceof Error && error.message.includes('safety')) {
+      return "Yo, let's keep it clean and respectful! What else you wanna know about sneakers? 🤝";
+    }
+    return "Connection's lagging! Hit me with that question again in a sec. 👟";
   }
 }
