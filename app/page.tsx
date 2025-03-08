@@ -2,6 +2,7 @@ import { Nav } from "@/components/nav"
 import { CountdownTimer } from "@/components/countdown-timer"
 import { TrendingProducts } from "@/components/trending-products"
 import { Footer } from "@/components/footer"
+import { ChatBot } from "@/components/chat-bot"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
@@ -74,6 +75,7 @@ export default function Home() {
         </div>
       </section>
       <Footer />
+      <ChatBot />
     </main>
 
   )
