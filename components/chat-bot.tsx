@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { CloudLightning as Lightning, X, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { getChatResponse } from "../lib/gemini"
+import { getChatResponse } from "@/lib/gemini"
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
