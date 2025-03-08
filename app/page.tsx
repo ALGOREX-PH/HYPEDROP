@@ -12,28 +12,34 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-fuchsia-500/20 to-cyan-500/20 animate-gradient-xy"></div>
+          
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full mix-blend-overlay opacity-50"
           >
             <source src="https://cdn.pixabay.com/vimeo/147860386/urban-19420.mp4?width=1280&hash=bc7c3ca7945fa4a92f32f72b0c4c37f5f2d82245" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+          
+          {/* Animated mesh gradient */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(50,0,100,0.3),transparent_70%)]"></div>
         </div>
         
-        <div className="relative z-10 text-center px-4">
+        <div className="relative z-10 text-center px-4 animate-fade-in">
           <div className="space-y-4">
-            <span className="inline-block bg-violet-600 text-white px-4 py-1 rounded-full text-sm">
+            <span className="inline-block bg-violet-600/90 text-white px-4 py-1 rounded-full text-sm backdrop-blur-sm shadow-lg shadow-violet-500/20">
               🔥 EXCLUSIVE DROP
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold">
+            <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-violet-200 to-white">
               SUPREME × NIKE<br />SPRING 2025
             </h1>
-            <p className="text-xl text-gray-400">ONLY 50 PIECES LEFT</p>
-            <Button size="lg" className="bg-violet-600 hover:bg-violet-700 mt-8">
+            <p className="text-xl text-gray-300">ONLY 50 PIECES LEFT</p>
+            <Button size="lg" className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105">
               Shop The Drop
             </Button>
           </div>
