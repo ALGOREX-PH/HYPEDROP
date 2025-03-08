@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { CloudLightning as Lightning, X, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import ReactMarkdown from 'react-markdown'
 import { getChatResponse } from "@/lib/gemini";
 
 interface ChatMessage {
@@ -98,8 +99,43 @@ export function ChatBot() {
               <div className={cn(
                 "rounded-2xl px-4 py-2 max-w-[80%]",
                 message.type === 'assistant' ? "bg-violet-600/20 text-white" : "bg-white/10"
-              )}>
-                {message.content}
+              )}
+            >
+              {message.type === 'assistant' ? (
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                    ul: ({ children }) => <ul className="list-disc ml-4 mb-2">{children}</ul>,
+                    ol: ({ children }) => <ol className="list-decimal ml-4 mb-2">{children}</ol>,
+                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                    h1: ({ children }) => <h1 className="text-xl font-bold mb-2">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-lg font-bold mb-2">{children}</h2>,
+                    h3: ({ children }) => <h3 className="text-base font-bold mb-2">{children}</h3>,
+                    code: ({ children }) => (
+                      <code className="bg-black/30 rounded px-1 py-0.5 text-sm">{children}</code>
+                    ),
+                    pre: ({ children }) => (
+                      <pre className="bg-black/30 rounded p-2 mb-2 overflow-x-auto">{children}</pre>
+                    ),
+                    a: ({ href, children }) => (
+                      <a href={href} className="text-violet-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                        {children}
+                      </a>
+                    ),
+                    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                    em: ({ children }) => <em className="italic">{children}</em>,
+                    blockquote: ({ children }) => (
+                      <blockquote className="border-l-2 border-violet-500 pl-4 my-2 italic">
+                        {children}
+                      </blockquote>
+                    ),
+                  }}
+                >
+                  {message.content}
+                </ReactMarkdown>
+              ) : (
+                message.content
+              )}
               </div>
             </div>
           ))}
