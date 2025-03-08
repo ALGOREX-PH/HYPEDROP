@@ -78,14 +78,6 @@ const config: Config = {
             height: '0',
           },
         },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'gradient-xy': 'gradient-xy 15s ease infinite',
-        'fade-in': 'fade-in 1s ease-out',
-      },
-      keyframes: {
         'gradient-xy': {
           '0%, 100%': {
             'background-size': '400% 400%',
@@ -106,6 +98,12 @@ const config: Config = {
             transform: 'translateY(0)'
           }
         }
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'gradient-xy': 'gradient-xy 15s ease infinite',
+        'fade-in': 'fade-in 1s ease-out',
       }
     },
   },
