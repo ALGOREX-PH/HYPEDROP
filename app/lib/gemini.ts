@@ -4,6 +4,7 @@ if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
   throw new Error('Gemini API key is required');
 }
 
+const systemPrompt = process.env.NEXT_PUBLIC_SYSTEM_PROMPT || '';
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
 interface ChatMessage {
@@ -27,27 +28,23 @@ export async function getChatResponse(userMessage: string, chatHistory: ChatMess
       return "Hey, what's on your mind? Let's talk sneakers and style! 🔥";
     }
 
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-pro',
-      generationConfig: {
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 1024,
-      }
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const chat = model.startChat({
+      history: [
+        { role: 'user', parts: ['System: ' + systemPrompt] },
+        { role: 'model', parts: ['Understood. I will act as HypeBot, the sneaker and streetwear expert.'] }
+      ],
+      generationConfig: { temperature: 0.7, topK: 40, topP: 0.95, maxOutputTokens: 1024 }
     });
 
-    // Format the conversation history
-    const formattedHistory = chatHistory
+    // Add recent chat history
+    for (const msg of chatHistory
       .slice(-5)
-      .filter(msg => msg.type === 'user' || msg.type === 'assistant')
-      .map(msg => `${msg.type === 'user' ? 'Human' : 'Assistant'}: ${msg.content}`)
-      .join('\n');
+      .filter(msg => msg.type === 'user' || msg.type === 'assistant')) {
+      await chat.sendMessage(msg.content);
+    }
 
-    // Combine system prompt and history into a single prompt
-    const fullPrompt = `${process.env.NEXT_PUBLIC_SYSTEM_PROMPT || ''}\n\nConversation history:\n${formattedHistory}\n\nHuman: ${userMessage}\nAssistant:`;
-
-    const result = await model.generateContent(fullPrompt);
+    const result = await chat.sendMessage(userMessage);
     const response = await result.response;
     const text = response.text();
 
