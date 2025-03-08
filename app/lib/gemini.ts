@@ -1,38 +1,34 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
-  console.error('Gemini API key not configured');
   throw new Error('Gemini API key is required');
 }
 
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-
-type Role = 'user' | 'model';
 
 interface ChatMessage {
-  type: string;
+  type: 'user' | 'assistant';
   content: string;
 }
 
-function formatHistory(messages: ChatMessage[]) {
-  return messages.map(msg => ({
-    role: msg.type === 'user' ? 'user' : 'assistant',
-    parts: [{ text: msg.content }]
-  }));
-}
-
-export async function getChatResponse(userMessage: string, chatHistory: ChatMessage[]) {
-  console.log('Chat History:', chatHistory);
-  console.log('System Prompt:', process.env.NEXT_PUBLIC_SYSTEM_PROMPT);
+export async function getChatResponse(userMessage: string, chatHistory: ChatMessage[] = []) {
   try {
+    // Validate chat history
+    if (!Array.isArray(chatHistory) || !chatHistory.every(msg => 
+      msg && 
+      (msg.type === 'user' || msg.type === 'assistant') && 
+      typeof msg.content === 'string'
+    )) {
+      console.error('Invalid chat history format');
+      chatHistory = [];
+    }
+
     if (!userMessage.trim()) {
       return "Hey, what's on your mind? Let's talk sneakers and style! 🔥";
     }
 
-    // Create a fresh chat for each request
-    const chat = model.startChat({
-      history: formatHistory(chatHistory.slice(-5)),
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-pro',
       generationConfig: {
         temperature: 0.7,
         topK: 40,
@@ -41,17 +37,17 @@ export async function getChatResponse(userMessage: string, chatHistory: ChatMess
       }
     });
 
-    // Send the system prompt first if it exists
-    if (process.env.NEXT_PUBLIC_SYSTEM_PROMPT) {
-      await chat.sendMessage({
-        role: "system",
-        parts: [{ text: process.env.NEXT_PUBLIC_SYSTEM_PROMPT }]
-      });
-    }
+    // Format the conversation history
+    const formattedHistory = chatHistory
+      .slice(-5)
+      .filter(msg => msg.type === 'user' || msg.type === 'assistant')
+      .map(msg => `${msg.type === 'user' ? 'Human' : 'Assistant'}: ${msg.content}`)
+      .join('\n');
 
-    // Send the user's message
-    const result = await chat.sendMessage(userMessage);
+    // Combine system prompt and history into a single prompt
+    const fullPrompt = `${process.env.NEXT_PUBLIC_SYSTEM_PROMPT || ''}\n\nConversation history:\n${formattedHistory}\n\nHuman: ${userMessage}\nAssistant:`;
 
+    const result = await model.generateContent(fullPrompt);
     const response = await result.response;
     const text = response.text();
 
@@ -65,6 +61,6 @@ export async function getChatResponse(userMessage: string, chatHistory: ChatMess
     if (error instanceof Error && error.message.includes('safety')) {
       return "Yo, let's keep it clean and respectful! What else you wanna know about sneakers? 🤝";
     }
-    return "Server's taking a quick breather! Drop that question again in a sec. 🔄";
+    return "Connection's lagging! Hit me with that question again in a sec. 👟";
   }
 }
