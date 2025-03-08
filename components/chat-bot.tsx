@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { CloudLightning as Lightning, X, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { getChatResponse } from "@/lib/gemini"
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,20 +12,36 @@ export function ChatBot() {
     { type: "bot", content: "Hey! How can I help you today? 🔥" }
   ])
   const [input, setInput] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const handleSend = () => {
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const handleSend = async () => {
     if (!input.trim()) return
-    
-    setMessages(prev => [...prev, { type: "user", content: input }])
+    const userMessage = input.trim()
     setInput("")
+    setIsLoading(true)
     
-    // Simulate bot response
-    setTimeout(() => {
+    setMessages(prev => [...prev, { type: "user", content: userMessage }])
+    
+    try {
+      const response = await getChatResponse(userMessage, messages)
+      setMessages(prev => [...prev, { type: "bot", content: response }])
+    } catch (error) {
       setMessages(prev => [...prev, { 
-        type: "bot", 
-        content: "Thanks for your message! Our team will get back to you soon. 🚀" 
+        type: "bot",
+        content: "Sorry, I'm having trouble connecting. Please try again. 🔌"
       }])
-    }, 1000)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -89,20 +106,30 @@ export function ChatBot() {
             className="flex gap-2"
           >
             <input
+              disabled={isLoading}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className={cn(
+                "flex-1 bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
+              )}
             />
             <Button
               type="submit"
               size="icon"
-              className="bg-violet-600 hover:bg-violet-700"
+              disabled={isLoading}
+              className={cn(
+                "bg-violet-600 hover:bg-violet-700",
+                "disabled:opacity-50 disabled:cursor-not-allowed",
+                isLoading && "animate-pulse"
+              )}
             >
               <Send className="w-4 h-4" />
             </Button>
           </form>
+          <div ref={messagesEndRef} />
         </div>
       </div>
     </>
