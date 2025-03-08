@@ -6,11 +6,11 @@ if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
 
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
-const systemPrompt = process.env.NEXT_PUBLIC_SYSTEM_PROMPT || `You are HYPEDROP's AI assistant. You help customers with questions about streetwear, limited drops, and fashion culture. Be knowledgeable, trendy, and maintain a cool, professional tone.`;
+const systemPrompt = process.env.NEXT_PUBLIC_SYSTEM_PROMPT;
 
 export async function getChatResponse(userMessage: string, chatHistory: { type: string; content: string }[]) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     
     // Format chat history for Gemini
     const formattedHistory = chatHistory
