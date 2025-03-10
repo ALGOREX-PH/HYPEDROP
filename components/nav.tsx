@@ -63,12 +63,6 @@ export function Nav() {
                 <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2">
                   ABOUT US
                 </Link>
-                <Link href="/trending" className="text-gray-300 hover:text-white px-3 py-2">
-                  TRENDING
-                </Link>
-                <Link href="/collections" className="text-gray-300 hover:text-white px-3 py-2">
-                  COLLECTIONS
-                </Link>
                 <Link href="/community" className="text-gray-300 hover:text-white px-3 py-2">
                   COMMUNITY
                 </Link>
