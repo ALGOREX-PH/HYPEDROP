@@ -12,7 +12,7 @@ export function Nav() {
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Sheet>
               <SheetTrigger asChild className="lg:hidden mr-4">
@@ -33,12 +33,6 @@ export function Nav() {
                   </Link>
                   <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2">
                     ABOUT US
-                  </Link>
-                  <Link href="/trending" className="text-gray-300 hover:text-white px-3 py-2">
-                    TRENDING
-                  </Link>
-                  <Link href="/collections" className="text-gray-300 hover:text-white px-3 py-2">
-                    COLLECTIONS
                   </Link>
                   <Link href="/community" className="text-gray-300 hover:text-white px-3 py-2">
                     COMMUNITY
@@ -71,12 +65,12 @@ export function Nav() {
           </div>
           <div className="flex items-center gap-2">
             <Link href="/auth">
-              <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex">
+              <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex whitespace-nowrap">
                 Sign Up
               </Button>
             </Link>
             <Link href="/cart">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-10 w-10">
                 <ShoppingCart className="w-5 h-5" />
               </Button>
             </Link>
