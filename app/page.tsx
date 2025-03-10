@@ -4,6 +4,7 @@ import { TrendingProducts } from "@/components/trending-products"
 import { Footer } from "@/components/footer"
 import { ChatBot } from "@/components/chat-bot"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
@@ -41,13 +42,14 @@ export default function Home() {
               SUPREME × NIKE<br />SPRING 2025
             </h1>
             <p className="text-xl text-gray-300">ONLY 50 PIECES LEFT</p>
-            <Button
-              size="lg"
-              className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
-              onClick={() => window.location.href = '/shop'}
-            >
-              Shop The Drop
-            </Button>
+            <Link href="/shop">
+              <Button
+                size="lg"
+                className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
+              >
+                Shop The Drop
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
