@@ -34,14 +34,15 @@ const tiers = [
 export function TierSelection({ show }: TierSelectionProps) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: show ? 1 : 0.5 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: show ? 1 : 0.5, y: show ? 0 : 20 }}
+      transition={{ duration: 0.5 }}
       className={cn(
-        "p-8 rounded-2xl bg-black/40 backdrop-blur-sm border border-white/10",
+        "p-8 rounded-2xl bg-black/60 backdrop-blur-sm border border-white/10",
         !show && "pointer-events-none"
       )}
     >
-      <h2 className="text-2xl font-bold text-center mb-8">Choose Your Tier</h2>
+      <h2 className="text-2xl font-bold mb-8">Choose Your Tier</h2>
 
       <div className="space-y-4">
         {tiers.map((tier, index) => (
@@ -51,12 +52,12 @@ export function TierSelection({ show }: TierSelectionProps) {
             animate={{ x: show ? 0 : 50, opacity: show ? 1 : 0 }}
             transition={{ delay: index * 0.1 }}
             className={cn(
-              "p-4 rounded-lg border transition-colors",
+              "p-4 rounded-lg border transition-all hover:border-white/20",
               tier.name === "VIP" 
-                ? "bg-gradient-to-r from-amber-900/20 to-yellow-900/20 border-amber-500/20" 
+                ? "bg-[#1A1614] border-amber-500/20" 
                 : tier.name === "HypeBeast"
-                ? "bg-gradient-to-r from-violet-900/20 to-blue-900/20 border-violet-500/20"
-                : "bg-white/5 border-white/10"
+                ? "bg-[#14161A] border-violet-500/20"
+                : "bg-[#1A1A1A] border-white/10"
             )}
           >
             <div className="flex items-center justify-between mb-4">
@@ -64,17 +65,17 @@ export function TierSelection({ show }: TierSelectionProps) {
                 <h3 className="font-bold">{tier.name}</h3>
                 <p className={cn(
                   "text-sm",
-                  tier.name === "VIP" ? "text-amber-400" : tier.name === "HypeBeast" ? "text-violet-400" : "text-gray-400"
+                  tier.name === "VIP" ? "text-amber-400" : tier.name === "HypeBeast" ? "text-violet-400" : "text-gray-500"
                 )}>
                   {tier.price}
                 </p>
               </div>
               <tier.icon className={cn(
                 "w-6 h-6",
-                tier.name === "VIP" ? "text-amber-400" : tier.name === "HypeBeast" ? "text-violet-400" : "text-gray-400"
+                tier.name === "VIP" ? "text-amber-400" : tier.name === "HypeBeast" ? "text-violet-400" : "text-gray-500"
               )} />
             </div>
-            <ul className="space-y-2 mb-4 text-sm text-gray-400">
+            <ul className="space-y-2 mb-4 text-sm text-gray-500">
               {tier.features.map((feature, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-current" />
@@ -99,19 +100,19 @@ export function TierSelection({ show }: TierSelectionProps) {
       </div>
 
       <div className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10">
-        <h3 className="font-semibold mb-2">Invite Friends & Earn Points</h3>
+        <h3 className="text-lg font-semibold mb-4">Invite Friends & Earn Points</h3>
         <div className="flex gap-2">
           <Input
             value="HYPE2025"
             type="text"
             readOnly
-            className="bg-white/5 border-white/10"
+            className="bg-black/40 border-white/10"
           />
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" className="bg-black/40">
             <Copy className="w-4 h-4" />
           </Button>
         </div>
-        <Button className="w-full mt-2 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600">
+        <Button className="w-full mt-4 bg-violet-600 hover:bg-violet-700">
           Share Link
         </Button>
       </div>
