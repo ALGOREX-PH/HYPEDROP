@@ -41,7 +41,11 @@ export default function Home() {
               SUPREME × NIKE<br />SPRING 2025
             </h1>
             <p className="text-xl text-gray-300">ONLY 50 PIECES LEFT</p>
-            <Button size="lg" className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105">
+            <Button
+              size="lg"
+              className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
+              onClick={() => window.location.href = '/shop'}
+            >
               Shop The Drop
             </Button>
           </div>
