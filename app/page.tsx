@@ -37,14 +37,14 @@ export default function Home() {
             <span className="inline-block bg-violet-600/90 text-white px-4 py-1 rounded-full text-sm backdrop-blur-sm shadow-lg shadow-violet-500/20">
               🔥 EXCLUSIVE DROP
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-violet-200 to-white">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-violet-200 to-white">
               SUPREME × NIKE<br />SPRING 2025
             </h1>
-            <p className="text-xl text-gray-300">ONLY 50 PIECES LEFT</p>
+            <p className="text-lg sm:text-xl text-gray-300">ONLY 50 PIECES LEFT</p>
             <Link href="/shop">
               <Button
                 size="lg"
-                className="bg-violet-600 hover:bg-violet-700 mt-8 shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
+                className="bg-violet-600 hover:bg-violet-700 mt-6 sm:mt-8 w-full sm:w-auto shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
               >
                 Shop The Drop
               </Button>
