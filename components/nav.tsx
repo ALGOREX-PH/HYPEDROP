@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, ShoppingCart } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -61,6 +61,11 @@ export function Nav() {
           <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex">
             Sign Up
           </Button>
+          </Link>
+          <Link href="/cart">
+            <Button variant="ghost" size="icon" className="ml-2">
+              <ShoppingCart className="w-5 h-5" />
+            </Button>
           </Link>
         </div>
       </div>
