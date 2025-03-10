@@ -154,30 +154,24 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         {/* Payment Methods */}
         <div className="grid grid-cols-3 gap-2">
           <Button variant="outline" className="h-12">
-            <Image
-              src="/apple-pay.svg"
+            <img
+              src="https://cdn.jsdelivr.net/gh/gilbarbara/logos@main/logos/apple-pay.svg"
               alt="Apple Pay"
-              width={32}
-              height={32}
-              className="opacity-75"
+              className="h-8 w-auto opacity-75"
             />
           </Button>
           <Button variant="outline" className="h-12">
-            <Image
-              src="/google-pay.svg"
+            <img
+              src="https://cdn.jsdelivr.net/gh/gilbarbara/logos@main/logos/google-pay.svg"
               alt="Google Pay"
-              width={32}
-              height={32}
-              className="opacity-75"
+              className="h-8 w-auto opacity-75"
             />
           </Button>
           <Button variant="outline" className="h-12">
-            <Image
-              src="/paypal.svg"
+            <img
+              src="https://cdn.jsdelivr.net/gh/gilbarbara/logos@main/logos/paypal.svg"
               alt="PayPal"
-              width={32}
-              height={32}
-              className="opacity-75"
+              className="h-8 w-auto opacity-75"
             />
           </Button>
         </div>
