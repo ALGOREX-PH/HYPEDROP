@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
+import { ChatBot } from '@/components/chat-bot';
 import { ThemeProvider } from '@/components/theme-provider';
 
 const outfit = Outfit({ subsets: ['latin'] });
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={outfit.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           {children}
+          <ChatBot />
         </ThemeProvider>
       </body>
     </html>
