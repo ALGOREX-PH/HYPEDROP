@@ -57,16 +57,18 @@ export function Nav() {
               </div>
             </div>
           </div>
-          <Link href="/auth">
-          <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex">
-            Sign Up
-          </Button>
-          </Link>
-          <Link href="/cart">
-            <Button variant="ghost" size="icon" className="ml-2">
-              <ShoppingCart className="w-5 h-5" />
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href="/auth">
+              <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex">
+                Sign Up
+              </Button>
+            </Link>
+            <Link href="/cart">
+              <Button variant="ghost" size="icon">
+                <ShoppingCart className="w-5 h-5" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
