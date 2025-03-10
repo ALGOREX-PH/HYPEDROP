@@ -58,10 +58,10 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ view, onViewChange }: ProductGridProps) {
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
   const router = useRouter()
 
-  const handleProductClick = (productId: number) => {
+  const handleProductClick = (productId: string) => {
     router.push(`/shop/${productId}`)
   }
 
