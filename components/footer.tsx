@@ -5,9 +5,9 @@ import { Instagram, Twitter, Disc as Discord } from "lucide-react"
 export function Footer() {
   return (
     <footer className="bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 grid grid-cols-2 sm:grid-cols-4 gap-8">
         {/* Brand Column */}
-        <div className="space-y-4">
+        <div className="col-span-2 sm:col-span-1 space-y-4">
           <Logo />
           <p className="text-gray-400 text-sm">
             The ultimate destination for exclusive streetwear drops and limited editions.
@@ -15,7 +15,7 @@ export function Footer() {
         </div>
 
         {/* Quick Links */}
-        <div>
+        <div className="space-y-2">
           <h3 className="font-bold mb-4">QUICK LINKS</h3>
           <ul className="space-y-2">
             <li><Link href="/new-arrivals" className="text-gray-400 hover:text-white text-sm">New Arrivals</Link></li>
@@ -26,7 +26,7 @@ export function Footer() {
         </div>
 
         {/* Support */}
-        <div>
+        <div className="space-y-2">
           <h3 className="font-bold mb-4">SUPPORT</h3>
           <ul className="space-y-2">
             <li><Link href="/faq" className="text-gray-400 hover:text-white text-sm">FAQ</Link></li>
