@@ -25,6 +25,9 @@ export function Nav() {
                   <Link href="/collabs" className="text-gray-300 hover:text-white px-3 py-2">
                     COLLABS
                   </Link>
+                  <Link href="/terms" className="text-gray-300 hover:text-white px-3 py-2">
+                    TERMS & POLICIES
+                  </Link>
                   <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2">
                     CONTACT US
                   </Link>
@@ -50,6 +53,9 @@ export function Nav() {
               <div className="flex items-center space-x-4">
                 <Link href="/collabs" className="text-gray-300 hover:text-white px-3 py-2">
                   COLLABS
+                </Link>
+                <Link href="/terms" className="text-gray-300 hover:text-white px-3 py-2">
+                  TERMS & POLICIES
                 </Link>
                 <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2">
                   CONTACT US
