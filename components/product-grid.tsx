@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { LayoutGrid, List, ShoppingCart, Flame } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,7 +9,7 @@ import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 interface Product {
-  id: number
+  id: string
   brand: string
   name: string
   price: number
@@ -20,7 +21,7 @@ interface Product {
 
 const products: Product[] = [
   {
-    id: 1,
+    id: "1",
     brand: "Nike x Travis Scott",
     name: "Air Jordan 1 Reverse Mocha",
     price: 1200,
@@ -30,7 +31,7 @@ const products: Product[] = [
     type: "Collab"
   },
   {
-    id: 2,
+    id: "2",
     brand: "Off-White",
     name: "Pascal Oversized Hoodie",
     price: 650,
@@ -40,7 +41,7 @@ const products: Product[] = [
     type: "Limited Edition"
   },
   {
-    id: 3,
+    id: "3",
     brand: "Supreme",
     name: "Box Logo Tee SS25",
     price: 450,
@@ -58,6 +59,11 @@ interface ProductGridProps {
 
 export function ProductGrid({ view, onViewChange }: ProductGridProps) {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const router = useRouter()
+
+  const handleProductClick = (productId: string) => {
+    router.push(`/shop/${productId}`)
+  }
 
   return (
     <div>
@@ -84,39 +90,44 @@ export function ProductGrid({ view, onViewChange }: ProductGridProps) {
       {/* Product Grid */}
       <div className={cn(
         "grid gap-6",
-        view === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+        view === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
       )}>
         {products.map((product) => (
           <Card
             key={product.id}
+            onClick={() => handleProductClick(product.id)}
             className={cn(
-              "group relative overflow-hidden bg-black/40 border-gray-800 transition-all duration-300",
-              "hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10"
+              "group relative overflow-hidden bg-black/40 border-gray-800 transition-all duration-300 cursor-pointer",
+              "hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10",
+              view === "list" && "sm:flex"
             )}
             onMouseEnter={() => setHoveredProduct(product.id)}
             onMouseLeave={() => setHoveredProduct(null)}
           >
             <div className={cn(
               "aspect-square relative overflow-hidden",
-              view === "list" && "w-48"
+              view === "list" && "sm:w-48"
             )}>
               <Image
                 src={hoveredProduct === product.id ? product.hoverImage : product.image}
                 alt={product.name}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className={cn(
+                  "object-cover transition-transform duration-500",
+                  "sm:group-hover:scale-110"
+                )}
               />
               <div className="absolute top-4 left-4 bg-violet-600 px-3 py-1 rounded-full text-sm">
                 {product.type}
               </div>
             </div>
 
-            <div className="p-4">
+            <div className="p-4 flex-1">
               <div className="text-sm text-gray-400 mb-1">{product.brand}</div>
               <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
               
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-violet-400">${product.price}</span>
+                <span className="text-xl sm:text-2xl font-bold text-violet-400">${product.price}</span>
                 <div className="flex items-center gap-1 text-sm">
                   <Flame className="w-4 h-4 text-orange-500" />
                   <span>{product.hypeScore}</span>
@@ -125,7 +136,10 @@ export function ProductGrid({ view, onViewChange }: ProductGridProps) {
 
               <Button
                 className="w-full mt-4 bg-violet-600 hover:bg-violet-700 gap-2"
-                onClick={() => console.log("Add to cart:", product.id)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  console.log("Add to cart:", product.id)
+                }}
               >
                 <ShoppingCart className="w-4 h-4" />
                 Add to Cart
