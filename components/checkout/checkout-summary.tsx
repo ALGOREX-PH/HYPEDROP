@@ -62,7 +62,10 @@ export function CheckoutSummary() {
 
       {/* Complete Purchase */}
       <div className="p-6 bg-black/20">
-        <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12 text-lg mb-4">
+        <Button 
+          className="w-full bg-blue-600 hover:bg-blue-700 h-12 text-lg mb-4"
+          onClick={() => window.location.href = "/thank-you"}
+        >
           Complete Purchase
         </Button>
         <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
