@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Crown, Zap, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -102,6 +103,7 @@ export function TierSelection({ show }: TierSelectionProps) {
         <div className="flex gap-2">
           <Input
             value="HYPE2025"
+            type="text"
             readOnly
             className="bg-white/5 border-white/10"
           />
