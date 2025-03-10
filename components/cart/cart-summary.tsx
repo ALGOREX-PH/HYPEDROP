@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useRouter } from "next/navigation"
 
 interface CartSummaryProps {
   subtotal: number
@@ -12,6 +13,8 @@ interface CartSummaryProps {
 }
 
 export function CartSummary({ subtotal, shipping, tax, total }: CartSummaryProps) {
+  const router = useRouter()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -61,7 +64,10 @@ export function CartSummary({ subtotal, shipping, tax, total }: CartSummaryProps
           </div>
         </div>
 
-        <Button className="w-full bg-violet-600 hover:bg-violet-700">
+        <Button 
+          className="w-full bg-violet-600 hover:bg-violet-700"
+          onClick={() => router.push("/checkout")}
+        >
           Proceed to Checkout
         </Button>
       </div>
