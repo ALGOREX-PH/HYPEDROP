@@ -7,7 +7,7 @@ import { AuthForm } from "@/components/auth-form"
 import { TierSelection } from "@/components/tier-selection"
 
 export default function AuthPage() {
-  const [showTiers, setShowTiers] = useState(false)
+  const [showTiers, setShowTiers] = useState(true)
 
   return (
     <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-black to-black">
@@ -18,7 +18,7 @@ export default function AuthPage() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             <AuthForm onSignUp={() => setShowTiers(true)} />
           </motion.div>
@@ -26,7 +26,7 @@ export default function AuthPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
             <TierSelection show={showTiers} />
           </motion.div>
