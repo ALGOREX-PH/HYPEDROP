@@ -57,25 +57,26 @@ export function ChatBot() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className={cn(
-          "fixed bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600",
+        className={cn( 
+          "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600",
           "hover:scale-110 transition-transform duration-200 shadow-lg shadow-violet-500/20",
           "flex items-center justify-center p-0 z-50",
           isOpen && "scale-0"
         )}
       >
-        <Lightning className="w-6 h-6 animate-[pulse_2s_ease-in-out_infinite]" />
+        <Lightning className="w-5 h-5 sm:w-6 sm:h-6 animate-[pulse_2s_ease-in-out_infinite]" />
       </Button>
 
       <div className={cn(
-        "fixed bottom-6 right-6 w-96 bg-black border border-white/10 rounded-2xl shadow-2xl z-50",
+        "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-2rem)] max-w-[450px] bg-black border border-white/10 rounded-2xl shadow-2xl z-50",
         "transition-all duration-300 transform",
         isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
       )}>
         <div className="flex items-center justify-between p-4 border-b border-white/10">
           <div className="flex items-center gap-2">
             <Lightning className="w-5 h-5 text-violet-500" />
-            <span className="font-semibold">HYPEDROP Assistant</span>
+            <span className="font-semibold hidden sm:inline">HYPEDROP Assistant</span>
+            <span className="font-semibold sm:hidden">Assistant</span>
           </div>
           <Button
             variant="ghost"
@@ -147,7 +148,7 @@ export function ChatBot() {
               e.preventDefault()
               handleSend()
             }}
-            className="flex gap-2"
+            className="flex gap-2 items-center"
           >
             <input
               disabled={isLoading}
@@ -156,7 +157,7 @@ export function ChatBot() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
               className={cn(
-                "flex-1 bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500",
+                "flex-1 min-w-0 bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500",
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             />
