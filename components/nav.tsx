@@ -57,9 +57,11 @@ export function Nav() {
               </div>
             </div>
           </div>
+          <Link href="/auth">
           <Button className="bg-violet-600 hover:bg-violet-700 hidden sm:inline-flex">
             Sign Up
           </Button>
+          </Link>
         </div>
       </div>
     </nav>
