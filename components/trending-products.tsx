@@ -32,8 +32,8 @@ const products = [
 
 export function TrendingProducts() {
   return (
-    <section className="py-20 px-4">
-      <h2 className="text-3xl font-bold text-center mb-12">TRENDING NOW</h2>
+    <section className="py-12 sm:py-20 px-4">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">TRENDING NOW</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {products.map(product => (
           <Card key={product.id} className="group relative overflow-hidden bg-black/40 border-gray-800">
@@ -49,9 +49,9 @@ export function TrendingProducts() {
               </div>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+              <h3 className="text-base sm:text-lg font-semibold mb-2">{product.name}</h3>
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold">${product.price}</span>
+                <span className="text-xl sm:text-2xl font-bold">${product.price}</span>
                 <span className="text-sm text-gray-400">{product.stock} left in stock</span>
               </div>
             </div>
