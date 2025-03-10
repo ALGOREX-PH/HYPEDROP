@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 interface Product {
-  id: string
+  id: number
   brand: string
   name: string
   price: number
@@ -21,7 +21,7 @@ interface Product {
 
 const products: Product[] = [
   {
-    id: "1",
+    id: 1,
     brand: "Nike x Travis Scott",
     name: "Air Jordan 1 Reverse Mocha",
     price: 1200,
@@ -31,7 +31,7 @@ const products: Product[] = [
     type: "Collab"
   },
   {
-    id: "2",
+    id: 2,
     brand: "Off-White",
     name: "Pascal Oversized Hoodie",
     price: 650,
@@ -41,7 +41,7 @@ const products: Product[] = [
     type: "Limited Edition"
   },
   {
-    id: "3",
+    id: 3,
     brand: "Supreme",
     name: "Box Logo Tee SS25",
     price: 450,
