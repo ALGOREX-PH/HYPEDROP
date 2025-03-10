@@ -42,9 +42,9 @@ export function CountdownTimer() {
   }, [])
 
   return (
-    <div className="text-center py-12 bg-black/40 backdrop-blur border-t border-b border-white/10">
-      <h3 className="text-2xl font-bold mb-8">NEXT DROP GOES LIVE IN</h3>
-      <div className="flex justify-center gap-4 mb-8">
+    <div className="text-center py-8 sm:py-12 bg-black/40 backdrop-blur border-t border-b border-white/10">
+      <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8">NEXT DROP GOES LIVE IN</h3>
+      <div className="flex justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
         <TimeBlock value={timeLeft.days} label="DAYS" />
         <TimeBlock value={timeLeft.hours} label="HOURS" />
         <TimeBlock value={timeLeft.minutes} label="MINUTES" />
@@ -60,9 +60,9 @@ export function CountdownTimer() {
 
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
-    <div className="bg-black/60 p-4 rounded-lg min-w-[100px]">
-      <div className="text-4xl font-bold mb-1">{value.toString().padStart(2, '0')}</div>
-      <div className="text-sm text-gray-400">{label}</div>
+    <div className="bg-black/60 p-3 sm:p-4 rounded-lg min-w-[70px] sm:min-w-[100px]">
+      <div className="text-2xl sm:text-4xl font-bold mb-1">{value.toString().padStart(2, '0')}</div>
+      <div className="text-xs sm:text-sm text-gray-400">{label}</div>
     </div>
   )
 }
