@@ -12,10 +12,10 @@ Hypedrop is a **Next.js** application designed to [briefly describe what the app
 
 ## 📦 Tech Stack
 
-- **Next.js** – React framework for production  
-- **React** – Component-based UI development  
-- **[Database (if applicable)]**  
-- **[State management tool (if applicable)]**  
+- **Next.js**
+- **React**
+- **Tailwind**
+- **GEMINI**
 
 ## 📖 Getting Started
 
